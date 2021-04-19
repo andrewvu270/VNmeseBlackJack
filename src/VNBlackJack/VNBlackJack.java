@@ -36,7 +36,7 @@ public class VNBlackJack {
     
     public void deal(InputStream in) {
         Scanner sc = new Scanner(in);
-        dealer.useDeck();
+        this.reset();
         this.draw(player);
         this.draw(dealer);
         this.draw(player);
@@ -120,6 +120,7 @@ public class VNBlackJack {
     }
     
     public void reset(){
+        dealer.useDeck();
         player.getHand().resetHand();
         dealer.getHand().resetHand();
     }

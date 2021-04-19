@@ -64,7 +64,7 @@ public class VNBlackJackTest {
      * Test of blackjack method, of class VNBlackJack.
      */
     @Test
-    public void testBlackjackgood() {
+    public void testBlackjackGood() {
         System.out.println("Check blackjack good");
         Player player = new Player("Tester");
         Dealer dealer = new Dealer("Tester");
@@ -80,7 +80,7 @@ public class VNBlackJackTest {
     
     
     @Test
-    public void testBlackjackbad() {
+    public void testBlackjackBad() {
         System.out.println("Check blackjack bad");
         Player player = new Player("Tester");
         Dealer dealer = new Dealer("Tester");
@@ -98,7 +98,7 @@ public class VNBlackJackTest {
      * Test of calculate method, of class VNBlackJack.
      */
     @Test
-    public void testCalculate() {
+    public void testCalculateGood() {
         System.out.println("Check calculate good");
         Player player = new Player("Tester");
         Dealer dealer = new Dealer("Tester");
@@ -116,6 +116,48 @@ public class VNBlackJackTest {
         boolean result = instance.getPlayer().getHand().calculatePts() > instance.getDealer().getHand().calculatePts();
         assertEquals(expResult, result);
     }
+@Test
+    public void testCalculateBad() {
+        System.out.println("Check calculate bad");
+        Player player = new Player("Tester");
+        Dealer dealer = new Dealer("Tester");
+        Card card1 = new Card(Rank.SEVEN, Suit.CLUBS);
+        Card card2 = new Card(Rank.ACE, Suit.DIAMONDS);
+        player.getHand().add(card1);
+        player.getHand().add(card2);
+        Card card3 = new Card(Rank.JACK, Suit.CLUBS);
+        Card card4 = new Card(Rank.NINE, Suit.HEARTS);
+        dealer.getHand().add(card3);
+        dealer.getHand().add(card4);
+        VNBlackJack instance = new VNBlackJack(player, dealer);
+        instance.calculate();
+        boolean expResult = false;
+        boolean result = instance.getPlayer().getHand().calculatePts() > instance.getDealer().getHand().calculatePts();
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCalculateBoundary() {
+        System.out.println("Check calculate boundary");
+        Player player = new Player("Tester");
+        Dealer dealer = new Dealer("Tester");
+        Card card1 = new Card(Rank.TEN, Suit.CLUBS);
+        Card card2 = new Card(Rank.NINE, Suit.DIAMONDS);
+        player.getHand().add(card1);
+        player.getHand().add(card2);
+        Card card3 = new Card(Rank.JACK, Suit.CLUBS);
+        Card card4 = new Card(Rank.NINE, Suit.HEARTS);
+        dealer.getHand().add(card3);
+        dealer.getHand().add(card4);
+        VNBlackJack instance = new VNBlackJack(player, dealer);
+        instance.calculate();
+        boolean expResult = true;
+        boolean result = instance.getPlayer().getHand().calculatePts() == instance.getDealer().getHand().calculatePts()
+                        || instance.getPlayer().getHand().calculatePts() <16 && instance.getDealer().getHand().calculatePts() > 21
+                        || instance.getPlayer().getHand().calculatePts() >21 && instance.getDealer().getHand().calculatePts() >21;
+        assertEquals(expResult, result);
+    }
+
 
     /**
      * Test of reset method, of class VNBlackJack.
