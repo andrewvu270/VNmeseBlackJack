@@ -115,7 +115,6 @@ public class VNBlackJack {
 
         System.out.println("Your fund is " + player.getMoney());
         System.out.println("Dealer fund is " + dealer.getMoney());
-        System.out.println(playDeck.size());
         
     }
     
